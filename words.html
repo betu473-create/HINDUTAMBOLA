@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>शब्द सूची — हिन्दू ताम्बोला</title>
+<meta name="description" content="हिन्दू ताम्बोला की शब्द सूची — जोड़ें, हटाएँ, ठीक करें">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" href="./icons/icon-192.png">
+<meta name="theme-color" content="#e65100">
+<style>
+/* ============================================================
+   हिन्दू ताम्बोला v8 — मुख्य स्टाइल (सुंदर, मोबाइल-फर्स्ट)
+   ============================================================ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Sans Devanagari','Nirmala UI','Mangal',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, #ffe0b2 0%, rgba(255,224,178,0) 60%),
+    linear-gradient(165deg,#fffaf0 0%,#fff3e0 55%,#ffe8cc 100%);
+  min-height:100vh;color:#3e2723;
+}
+.wrap{max-width:600px;margin:0 auto;padding:16px 14px 56px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.brand{font-size:1.15rem;font-weight:800;color:#bf360c;letter-spacing:.2px}
+.topbar a{color:#e65100;text-decoration:none;font-weight:700;font-size:.9rem}
+.card{background:rgba(255,255,255,.95);border:1px solid #ffecdf;border-radius:18px;box-shadow:0 6px 18px rgba(191,54,12,.08);padding:18px 16px;margin:14px 0}
+.card h2{margin:0 0 12px;font-size:1.08rem;color:#bf360c}
+.muted{color:#8d6e63;font-size:.85rem;line-height:1.55}
+a{color:#e65100}
+.status{background:#fff3e0;border:1px dashed #ffb74d;border-radius:12px;padding:10px 12px;font-size:.92rem;color:#6d4c41;margin:10px 0;line-height:1.5}
+.designed-by{text-align:center;font-size:.88rem;color:#795548;font-weight:600;margin:16px 0 0;padding:10px;border-top:1px solid #ffe0b2}
+
+/* ---------- बटन ---------- */
+.btn{display:inline-block;width:100%;padding:14px 18px;font-size:1.02rem;font-weight:700;font-family:inherit;text-align:center;text-decoration:none;
+  background:linear-gradient(135deg,#f57c00,#e65100);color:#fff;border:none;border-radius:14px;cursor:pointer;margin:6px 0;
+  box-shadow:0 4px 12px rgba(230,81,0,.28)}
+.btn:active{transform:scale(.98)}
+.btn.green{background:linear-gradient(135deg,#66bb6a,#2e7d32);box-shadow:0 4px 12px rgba(46,125,50,.28)}
+.btn.ghost{background:#fff;color:#d84315;border:2px solid #ffb74d;box-shadow:none}
+.btn.small{width:auto;font-size:.85rem;padding:9px 14px;margin:4px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn-row>.btn{flex:1 1 45%}
+.btn-row>a.btn,.btn-row>button,.btn-row>select{flex:1 1 45%}
+.btn.pulse{animation:pulse 1.1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(46,125,50,.5)}50%{box-shadow:0 0 0 12px rgba(46,125,50,0)}}
+
+/* ---------- इनपुट ---------- */
+.txt{width:100%;padding:13px 14px;margin:6px 0;border:1.5px solid #ffcc80;border-radius:12px;font-size:1rem;font-family:inherit;background:#fffdf7;color:#3e2723}
+.txt:focus{outline:2px solid #ef6c00}
+select{padding:11px 12px;border:1.5px solid #ffcc80;border-radius:12px;font-family:inherit;font-size:.95rem;background:#fff;color:#4e342e;width:100%}
+.linkbox{display:flex;gap:8px;align-items:stretch}
+.linkbox input{flex:1;min-width:0;padding:10px 12px;border:1.5px solid #ffcc80;border-radius:12px;font-size:.85rem;background:#fffde7;color:#5d4037}
+.roomcode{font-size:2.1rem;font-weight:800;letter-spacing:.3em;text-indent:.3em;color:#e65100;text-align:center;margin:8px 0 12px}
+
+/* ---------- टाइमर ---------- */
+.timer{display:inline-flex;align-items:center;gap:6px;background:#263238;color:#ffd54f;border-radius:999px;padding:8px 16px;font-size:1rem;font-weight:800;font-variant-numeric:tabular-nums}
+.timer-bar{text-align:center;margin:10px 0}
+
+/* ---------- एनाउंसमेंट बैनर ---------- */
+.announce-banner{display:none;background:#c62828;color:#fff;border-radius:12px;padding:12px 16px;font-size:.95rem;font-weight:700;margin:10px 0;text-align:center;animation:pop .5s ease}
+.announce-banner.show{display:block}
+
+/* ---------- बड़ा शब्द कार्ड ---------- */
+.word-card{background:linear-gradient(140deg,#f57c00,#bf360c);color:#fff;border-radius:22px;padding:30px 16px 26px;margin:16px 0;text-align:center;min-height:170px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 24px rgba(191,54,12,.30)}
+.word-label{font-size:.9rem;opacity:.85;font-weight:700;letter-spacing:.5px}
+#current-shabd{font-size:clamp(2rem,10vw,3.2rem);font-weight:800;line-height:1.25;word-break:break-word;padding:6px 4px;min-height:1.3em}
+.word-sub{font-size:.82rem;opacity:.85;margin-top:6px}
+.countdown{font-size:.95rem;font-weight:700;background:rgba(255,255,255,.18);border-radius:999px;padding:6px 14px;margin-top:12px;display:none}
+.countdown.show{display:inline-block}
+.pop{animation:pop .55s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{0%{transform:scale(.35);opacity:0}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+
+/* ---------- चिप्स व पिल्स ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{background:#ffe0b2;color:#5d4037;border-radius:999px;padding:5px 12px;font-size:.8rem;font-weight:700}
+.players{display:flex;flex-wrap:wrap;gap:6px}
+.player-pill{background:#e0f2f1;color:#00695c;border-radius:999px;padding:6px 12px;font-size:.85rem;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.player-pill.warn{background:#ffebee;color:#b71c1c}
+.claim-row{background:#fff8e1;border-left:4px solid #ffb300;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:.9rem}
+
+/* ---------- टिकट ---------- */
+.ticket{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.cell{background:#fff;border:2px solid #ffcc80;border-radius:14px;padding:6px 4px;min-height:72px;font-size:.9rem;font-weight:700;font-family:inherit;color:#4e342e;cursor:pointer;line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:transform .1s}
+.cell-num{display:block;font-size:.72rem;font-weight:800;color:#e65100;background:#fff3e0;border-radius:6px;padding:1px 6px;margin-bottom:3px;line-height:1.4}
+.cell-word{display:block;font-size:.9rem;line-height:1.3;word-break:break-word}
+.cell:active{transform:scale(.96)}
+.cell.came{border-color:#e65100;box-shadow:0 0 0 3px rgba(230,81,0,.18)}
+.cell.marked{background:linear-gradient(135deg,#66bb6a,#2e7d32);border-color:#2e7d32;color:#fff}
+.cell.marked .cell-num{background:rgba(255,255,255,.3);color:#fff}
+.cell.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.progress{font-size:.95rem;font-weight:800;color:#bf360c;text-align:center}
+
+/* ---------- रिपीट बटन ---------- */
+.repeat-row{text-align:center;margin:8px 0}
+
+/* ---------- चैट ---------- */
+.chat-box{background:#fff8ee;border:1.5px solid #ffe0b2;border-radius:14px;padding:12px;margin:10px 0}
+.chat-msgs{max-height:220px;overflow-y:auto;padding:4px 0}
+.chat-msg{margin:6px 0;padding:8px 12px;border-radius:12px;max-width:85%;font-size:.88rem;line-height:1.4;word-break:break-word}
+.chat-msg.me{background:#e3f2fd;margin-left:auto;text-align:right}
+.chat-msg.host{background:#fff3e0}
+.chat-msg.sys{background:#f1f8e9;text-align:center;max-width:100%;font-size:.8rem;color:#558b2f}
+.chat-msg b{display:block;font-size:.75rem;color:#78909c;margin-bottom:2px}
+.chat-input-row{display:flex;gap:8px;margin-top:8px}
+.chat-input-row input{flex:1;min-width:0;padding:10px 12px;border:1.5px solid #ffcc80;border-radius:10px;font-size:.9rem;font-family:inherit;background:#fff}
+
+/* ---------- विजेता ---------- */
+.winner{display:none;background:linear-gradient(135deg,#ffca28,#ff8f00);color:#4e2600;border-radius:18px;padding:22px 16px;text-align:center;font-size:1.35rem;font-weight:800;margin:14px 0;box-shadow:0 8px 20px rgba(255,143,0,.35)}
+.winner.show{display:block;animation:pop .6s cubic-bezier(.2,1.4,.4,1)}
+.winner-big{display:none;position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px}
+.winner-big.show{display:flex}
+.winner-big-inner{background:linear-gradient(150deg,#ffca28,#ff8f00);border-radius:24px;padding:40px 30px;text-align:center;max-width:400px;width:100%;animation:pop .7s cubic-bezier(.2,1.4,.4,1);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.winner-big-inner .trophy{font-size:4rem;line-height:1;margin-bottom:10px}
+.winner-big-inner .wname{font-size:1.8rem;font-weight:800;color:#4e2600;margin:10px 0}
+.winner-big-inner .wsub{font-size:1rem;color:#6d4c41}
+
+/* ---------- हिस्ट्री व लीडरबोर्ड ---------- */
+.history-item{background:#f5f5f5;border-left:4px solid #78909c;border-radius:8px;padding:10px 14px;margin:6px 0;font-size:.88rem}
+.history-item b{color:#37474f}
+.history-winner{color:#2e7d32;font-weight:700}
+.leader-row{display:flex;justify-content:space-between;align-items:center;background:#fffde7;border:1px solid #ffe082;border-radius:10px;padding:10px 14px;margin:6px 0;font-size:.92rem}
+.leader-row .rank{font-size:1.2rem;font-weight:800;color:#e65100;min-width:34px}
+.leader-row .lname{font-weight:700;flex:1}
+
+/* ---------- म्यूज़िक ---------- */
+.music-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.music-row audio{flex:1;min-width:200px;height:36px}
+
+/* ---------- शब्द जोड़ना ---------- */
+.word-add-row{display:flex;gap:8px}
+.word-add-row input{flex:1;min-width:0;padding:10px 12px;border:1.5px solid #ffcc80;border-radius:10px;font-size:.95rem;font-family:inherit;background:#fff}
+.word-add-result{font-size:.82rem;color:#2e7d32;font-weight:600;margin:4px 0}
+
+/* ---------- नियम ---------- */
+.rules li{margin:14px 0;line-height:1.7;font-size:.97rem}
+.rules{padding-left:22px}
+.mantra{text-align:center;font-weight:800;color:#bf360c;margin:18px 0 4px;font-size:1.1rem}
+
+/* ---------- लोगो blur बैकग्राउंड ---------- */
+.logo-wrap{position:relative;display:inline-block;padding:18px;border-radius:50%}
+.logo-blur{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,224,178,.9) 0%,rgba(255,238,170,.4) 50%,transparent 70%);filter:blur(18px);z-index:0}
+.logo-wrap img{position:relative;z-index:1}
+
+/* ---------- गेम ओवर स्क्रीन ---------- */
+.game-over{display:none;position:fixed;inset:0;z-index:105;background:rgba(62,39,35,.9);align-items:center;justify-content:center;padding:20px}
+.game-over.show{display:flex}
+.game-over-inner{background:linear-gradient(160deg,#fff8ec,#ffe0b2);border-radius:24px;padding:36px 28px;text-align:center;max-width:380px;width:100%;animation:pop .7s cubic-bezier(.2,1.4,.4,1);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.game-over-inner .go-icon{font-size:3.2rem;line-height:1;margin-bottom:8px}
+.game-over-inner .go-title{font-size:1.5rem;font-weight:800;color:#bf360c;margin:8px 0}
+.game-over-inner .go-winner{font-size:1.1rem;color:#2e7d32;font-weight:700;margin:6px 0 12px}
+.game-over-inner .go-sub{font-size:.88rem;color:#6d4c41;margin-bottom:16px}
+
+/* ---------- टोस्ट ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#3e2723;color:#fff;padding:11px 20px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s;z-index:99;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+
+/* ---------- मॉडल ---------- */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(62,39,35,.55);z-index:100;align-items:center;justify-content:center;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:18px;padding:18px;max-width:420px;width:100%;max-height:85vh;overflow:auto}
+
+/* ---------- कॉन्फ़ेटी ---------- */
+.confetti{position:fixed;top:-14px;width:10px;height:14px;z-index:98;pointer-events:none;animation:fall linear forwards;border-radius:2px}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+
+</style>
+<style>
+.wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:14px 0}
+.wl-item{background:#fff;border:1.5px solid #ffe0b2;border-radius:10px;padding:8px 46px 8px 10px;font-size:.88rem;font-weight:600;color:#4e342e;display:flex;align-items:flex-start;gap:8px;line-height:1.35;position:relative}
+.wl-num{background:#e65100;color:#fff;border-radius:6px;padding:1px 7px;font-size:.75rem;font-weight:800;flex-shrink:0;margin-top:1px;min-width:28px;text-align:center}
+.wl-tools{position:absolute;top:3px;right:3px;display:flex;gap:1px}
+.wl-btn{border:none;background:transparent;cursor:pointer;font-size:.9rem;padding:3px 6px;border-radius:6px;line-height:1}
+.wl-btn:active{background:#ffe0b2}
+.wl-search{width:100%;padding:13px 14px;margin:8px 0;border:1.5px solid #ffcc80;border-radius:12px;font-size:1rem;font-family:inherit;background:#fffdf7;color:#3e2723;box-sizing:border-box}
+.wl-count{font-size:.9rem;color:#8d6e63;text-align:center;margin:6px 0}
+.wl-add{display:flex;gap:8px;margin:10px 0}
+.wl-add input{flex:1;min-width:0;padding:13px 14px;border:1.5px solid #ffcc80;border-radius:12px;font-size:1rem;font-family:inherit;background:#fffdf7;color:#3e2723;box-sizing:border-box}
+.wl-warn{background:#fff3e0;border:1.5px solid #ffb74d;color:#bf360c;border-radius:12px;padding:10px 12px;font-size:.9rem;font-weight:600;text-align:center;margin:10px 0;display:none}
+.wl-badge{display:inline-block;background:#e8f5e9;color:#1b5e20;border:1.5px solid #a5d6a7;border-radius:20px;padding:4px 12px;font-size:.8rem;font-weight:700;margin-top:6px}
+.wl-note{font-size:.85rem;color:#8d6e63;text-align:center;margin:12px 0;line-height:1.6}
+</style>
+</head>
+<body>
+<script>
+/* होस्ट-लॉक (v5.6.8): सही PIN डाला हो + लॉगिन पुराना न हुआ हो — वरना होम भेज दो */
+(function(){
+  var ok = false;
+  try{
+    ok = localStorage.getItem('jt-host-ok') === '1';
+    if(ok){
+      var t = parseInt(localStorage.getItem('jt-host-ok-time') || '0', 10) || 0;
+      var ttl = parseInt(localStorage.getItem('jt-host-ttl') || '0', 10);
+      if(!(ttl > 0)) ttl = 43200000; /* डिफ़ॉल्ट: 12 घंटे */
+      if(!t || (Date.now() - t) > ttl){ localStorage.removeItem('jt-host-ok'); ok = false; }
+    }
+  }catch(e){}
+  if(!ok){ location.replace('./index.html'); }
+})();
+</script>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">॥ हिन्दू ताम्बोला ॥</div>
+    <a href="./index.html">होम</a>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <img src="./icons/logo.jpg" alt="हिन्दू ताम्बोला" style="width:80px;height:80px;border-radius:50%;object-fit:cover">
+    <div style="margin-top:8px;font-size:.95rem;font-weight:800;color:#a0522d;letter-spacing:.2px">— Designed by <span style="color:#5d4037">Himanshu Jain</span> —</div>
+    <h2 style="font-size:1.2rem;margin:10px 0 4px">📜 शब्द सूची — जोड़ें / हटाएँ / ठीक करें</h2>
+    <div class="wl-count" id="wl-count"></div>
+    <div id="wl-custom"></div>
+  </div>
+
+  <div class="card">
+    <div class="wl-add">
+      <input id="wl-new" type="text" placeholder="नया शब्द लिखिए..." maxlength="40">
+      <button class="btn small" id="wl-add-btn" type="button">➕ जोड़ें</button>
+    </div>
+    <input class="wl-search" id="wl-search" type="text" placeholder="🔍 शब्द खोजें...">
+    <div style="display:flex;gap:8px;margin:8px 0;align-items:center;flex-wrap:wrap">
+      <button class="btn small" id="wl-voice-btn" type="button">🎙 असली आवाज़ (रिकॉर्ड करें)</button>
+      <span class="muted" id="wl-voice-count" style="font-size:.85rem"></span>
+    </div>
+    <div class="wl-warn" id="wl-voice-note" style="display:none;background:#e8f5e9;border-color:#a5d6a7;color:#1b5e20">🎙 <b>आवाज़ मोड चालू है</b> — हर शब्द के सामने 🎙 दबाकर शब्द बोलें, फिर उसी बटन (⏹) से रोकें। रिकॉर्ड हुई आवाज़ गेम में शब्द निकलने पर बजेगी। ▶️ से सुनकर जाँचें। (गेम हमेशा इसी फोन से होस्ट करें)</div>
+    <div class="wl-warn" id="wl-warn"></div>
+    <div class="wl-grid" id="wl-grid"></div>
+    <button class="btn ghost" id="wl-reset" type="button" style="width:100%;margin-top:6px">♻️ डिफ़ॉल्ट सूची पर लौटें</button>
+    <button class="btn ghost" id="wl-dedupe" type="button" style="width:100%;margin-top:6px">🔍 डुप्लिकेट शब्द ढूँढें / हटाएँ</button>
+    <p class="wl-note">
+      ✏️ = शब्द ठीक करें &nbsp;•&nbsp; ❌ = शब्द हटाएँ<br>
+      बदलाव इसी फोन में सेव होंगे और <b>अगले नए गेम</b> में लागू होंगे।<br>
+      गेम हमेशा इसी फोन से होस्ट करें।
+    </p>
+  </div>
+
+  <a class="btn ghost" href="./index.html">← होम पर लौटें</a>
+  <p class="muted" style="text-align:center;margin-top:10px">॥ ॐ ॥</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="./js/config.js"></script>
+<script src="./js/words.js"></script>
+<script src="./js/voice.js"></script>
+<script src="./js/pwa.js"></script>
+<script>
+(function(){
+  var grid = document.getElementById('wl-grid');
+  var search = document.getElementById('wl-search');
+  var countEl = document.getElementById('wl-count');
+  var customEl = document.getElementById('wl-custom');
+  var warnEl = document.getElementById('wl-warn');
+  var newInp = document.getElementById('wl-new');
+
+  var MIN_WORDS = 13; /* एक टिकट = 12 खंड, इसलिए कम से कम 13 शब्ड */
+
+  var toastEl = null, toastTimer = null;
+  function toast(msg){
+    if(!toastEl) toastEl = document.getElementById('toast');
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    if(toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2200);
+  }
+
+  function _nrm(x){ return String(x||'').normalize('NFC').replace(/\s+/g,' ').trim(); }
+  function _nkey(x){ return _nrm(x).toLowerCase(); }
+  function _findDup(w){
+    var k = _nkey(w);
+    for(var i=0;i<SHABD_LIST.length;i++){ if(_nkey(SHABD_LIST[i]) === k) return i; }
+    return -1;
+  }
+  function saveList(){
+    try{ localStorage.setItem('jt_word_list', JSON.stringify(SHABD_LIST)); }catch(e){}
+  }
+  function hasCustom(){
+    try{ return !!localStorage.getItem('jt_word_list'); }catch(e){ return false; }
+  }
+
+  function updateHeader(){
+    var n = SHABD_LIST.length;
+    countEl.textContent = 'कुल ' + n + ' शब्द';
+    customEl.innerHTML = '';
+    if(hasCustom()){
+      var b = document.createElement('span');
+      b.className = 'wl-badge';
+      b.textContent = '✅ आपकी बदी हुई सूची चल रही है';
+      customEl.appendChild(b);
+    }
+    if(n < MIN_WORDS){
+      warnEl.style.display = 'block';
+      warnEl.textContent = '⚠️ कम से कम ' + MIN_WORDS + ' शब्द ज़रूरी हैं (एक टिकट = 12 खंड)। अभी सिर्फ ' + n + ' शब्द हैं — कुछ शब्द जोड़ दीजिए।';
+    }else{
+      warnEl.style.display = 'none';
+    }
+  }
+
+  function render(filter){
+    grid.innerHTML = '';
+    var f = (filter || '').trim();
+    var shown = 0;
+    SHABD_LIST.forEach(function(w, i){
+      if(f && w.indexOf(f) === -1) return;
+      shown++;
+      var d = document.createElement('div');
+      d.className = 'wl-item';
+
+      var n = document.createElement('span');
+      n.className = 'wl-num';
+      n.textContent = i + 1;
+
+      var t = document.createElement('span');
+      t.textContent = w;
+
+      var tools = document.createElement('span');
+      tools.className = 'wl-tools';
+      var be = document.createElement('button');
+      be.className = 'wl-btn'; be.type = 'button';
+      be.title = 'ठीक करें'; be.textContent = '✏️';
+      be.setAttribute('data-act', 'edit'); be.setAttribute('data-i', i);
+      var bd = document.createElement('button');
+      bd.className = 'wl-btn'; bd.type = 'button';
+      bd.title = 'हटाएँ'; bd.textContent = '❌';
+      bd.setAttribute('data-act', 'del'); bd.setAttribute('data-i', i);
+      tools.appendChild(be); tools.appendChild(bd);
+      if(voiceMode){
+        var bv = document.createElement('button');
+        bv.className = 'wl-btn'; bv.type = 'button';
+        bv.title = 'आवाज़ रिकॉर्ड करें';
+        bv.textContent = (recWord === w) ? '⏹' : (recorded[w] ? '🔁' : '🎙');
+        bv.setAttribute('data-act', 'rec'); bv.setAttribute('data-w', w);
+        var bp = document.createElement('button');
+        bp.className = 'wl-btn'; bp.type = 'button';
+        bp.title = 'सुनें'; bp.textContent = '▶️';
+        if(!recorded[w]) bp.style.opacity = '.35';
+        bp.setAttribute('data-act', 'vplay'); bp.setAttribute('data-w', w);
+        tools.appendChild(bv); tools.appendChild(bp);
+        if(recorded[w]) d.style.background = '#f1f8e9';
+      }
+
+      d.appendChild(n); d.appendChild(t); d.appendChild(tools);
+      grid.appendChild(d);
+    });
+    countEl.textContent = f
+      ? shown + ' शब्द मिले (कुल ' + SHABD_LIST.length + ' में से)'
+      : 'कुल ' + SHABD_LIST.length + ' शब्द';
+  }
+
+  /* ==================== असली आवाज़ (v5.6) ==================== */
+  var voiceMode = false;
+  var recorded = {};
+  var recWord = null, recMr = null, recStream = null, recChunks = [];
+
+  function refreshRecorded(){
+    if(!window.jtVoice){ return; }
+    jtVoice.keys().then(function(ks){
+      recorded = {};
+      (ks || []).forEach(function(w){ recorded[w] = true; });
+      var n = Object.keys(recorded).length;
+      var el = document.getElementById('wl-voice-count');
+      if(el) el.textContent = n ? '🎙 ' + n + ' शब्दों की आवाज़ रिकॉर्ड है' : '';
+      render(search.value);
+    });
+  }
+  function startRec(word, btn){
+    if(!navigator.mediaDevices || !window.MediaRecorder){
+      toast('⚠️ इस ब्राउज़र में रिकॉर्डिंग नहीं चलती — Chrome आज़माएँ'); return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+      recStream = stream; recChunks = []; recWord = word;
+      recMr = new MediaRecorder(stream);
+      recMr.ondataavailable = function(e){ if(e.data && e.data.size) recChunks.push(e.data); };
+      recMr.onstop = function(){
+        try{ recStream.getTracks().forEach(function(t){ t.stop(); }); }catch(err){}
+        var blob = new Blob(recChunks, { type: (recMr && recMr.mimeType) || 'audio/webm' });
+        var w = recWord; recWord = null;
+        if(blob.size < 300){
+          toast('⚠️ आवाज़ बहुत छोटी रही — दोबारा कोशिश करें');
+          render(search.value); return;
+        }
+        jtVoice.put(w, blob).then(function(ok){
+          toast(ok ? '✅ आवाज़ सेव हुई: ' + w : '⚠️ आवाज़ सेव नहीं हो पाई');
+          refreshRecorded();
+        });
+      };
+      try{ recMr.start(); }catch(err){ recWord = null; return; }
+      btn.textContent = '⏹';
+      btn.title = 'रिकॉर्डिंग रोकें';
+      toast('🔴 बोलिए: "' + word + '" — फिर उसी बटन (⏹) को दबाकर रोकें');
+    }).catch(function(){
+      toast('🎙 माइक की अनुमति नहीं मिली');
+    });
+  }
+  function stopRec(){
+    if(recMr && recMr.state !== 'inactive'){
+      try{ recMr.stop(); }catch(e){}
+    }
+  }
+
+  document.getElementById('wl-voice-btn').addEventListener('click', function(){
+    if(recWord) stopRec();
+    voiceMode = !voiceMode;
+    this.textContent = voiceMode ? '✖️ आवाज़ मोड बंद करें' : '🎙 असली आवाज़ (रिकॉर्ड करें)';
+    document.getElementById('wl-voice-note').style.display = voiceMode ? 'block' : 'none';
+    if(voiceMode) refreshRecorded();
+    else { document.getElementById('wl-voice-count').textContent = ''; render(search.value); }
+  });
+
+  /* जोड़ना */
+  function addWord(){
+    var w = (newInp.value || '').trim();
+    if(!w){ toast('पहले शब्द लिखिए'); return; }
+    var pos = _findDup(w);
+    if(pos !== -1){ toast('⚠️ यह शब्द पहले से है (क्र. ' + (pos+1) + ')'); return; }
+    SHABD_LIST.push(w);
+    saveList();
+    newInp.value = '';
+    updateHeader();
+    render(search.value);
+    toast('✅ जोड़ा गया: ' + w + ' (क्र. ' + SHABD_LIST.length + ')');
+  }
+
+  /* हटाना / ठीक करना */
+  grid.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('[data-act]') : null;
+    if(!btn) return;
+    var act = btn.getAttribute('data-act');
+
+    if(act === 'rec' || act === 'vplay'){
+      var word = btn.getAttribute('data-w') || '';
+      if(!word) return;
+      if(act === 'vplay'){
+        jtVoice.get(word).then(function(b){
+          if(b){ jtVoice.playBlob(b); }
+          else { toast('इस शब्द की आवाज़ अभी रिकॉर्ड नहीं हुई — पहले 🎙 दबाएँ'); }
+        });
+        return;
+      }
+      if(recWord === word){ stopRec(); return; }
+      if(recWord){ stopRec(); }
+      startRec(word, btn);
+      return;
+    }
+
+    var i = parseInt(btn.getAttribute('data-i'), 10);
+    if(isNaN(i) || i < 0 || i >= SHABD_LIST.length) return;
+
+    if(act === 'del'){
+      if(!confirm('“' + SHABD_LIST[i] + '” शब्द हटाना है?')) return;
+      SHABD_LIST.splice(i, 1);
+      saveList();
+      updateHeader();
+      render(search.value);
+      toast('🗑️ हटा दिया गया');
+    }
+
+    if(act === 'edit'){
+      var v = prompt('शब्द ठीक करें (क्र. ' + (i+1) + '):', SHABD_LIST[i]);
+      if(v === null) return;
+      v = v.trim();
+      if(!v){ toast('शब्द खाली नहीं हो सकता'); return; }
+      var dup = SHABD_LIST.indexOf(v);
+      if(dup !== -1 && dup !== i){ toast('⚠️ यह शब्द पहले से है (क्र. ' + (dup+1) + ')'); return; }
+      SHABD_LIST[i] = v;
+      saveList();
+      render(search.value);
+      toast('✏️ ठीक कर दिया गया');
+    }
+  });
+
+  /* डुप्लिकेट ढूँढें/हटाएँ */
+  document.getElementById('wl-dedupe').addEventListener('click', function(){
+    var seen = {}, out = [], dups = [];
+    for(var i=0;i<SHABD_LIST.length;i++){
+      var k = _nkey(SHABD_LIST[i]);
+      if(!k) continue;
+      if(seen[k]){ dups.push(SHABD_LIST[i]); continue; }
+      seen[k] = 1; out.push(SHABD_LIST[i]);
+    }
+    if(!dups.length){ toast('✅ कोई डुप्लिकेट नहीं मिला — सूची साफ़ है'); return; }
+    if(!confirm(dups.length + ' डुप्लिकेट शब्द मिले:\n\n' + dups.join(', ') + '\n\nइन्हें हटा दें?')) return;
+    SHABD_LIST.splice(0, SHABD_LIST.length);
+    out.forEach(function(x){ SHABD_LIST.push(x); });
+    saveList(); updateHeader(); render(search.value);
+    toast('🗑️ ' + dups.length + ' डुप्लिकेट हटाए गए');
+  });
+
+  /* डिफ़ॉल्ट पर लौटें */
+  document.getElementById('wl-reset').addEventListener('click', function(){
+    if(!confirm('आपके सारे बदलाव हटाकर पूरी डिफ़ॉल्ट सूची वापस लानी है?')) return;
+    try{
+      localStorage.removeItem('jt_word_list');
+      localStorage.removeItem('jt_extra_words');
+    }catch(e){}
+    location.reload();
+  });
+
+  document.getElementById('wl-add-btn').addEventListener('click', addWord);
+  newInp.addEventListener('keydown', function(e){ if(e.key === 'Enter') addWord(); });
+  search.addEventListener('input', function(){ render(search.value); });
+
+  updateHeader();
+  render('');
+})();
+</script>
+</body>
+</html>
