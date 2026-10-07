@@ -633,3 +633,11 @@ window.JT_PACK_OK = !jtCustomList;
 function jtWordsLocked(){ return false; }
 function jtUnlockWords(){ return Promise.resolve(SHABD_LIST.slice()); }
 function _jtShowLockBanner(){}
+
+
+/* v6.14: 'अपना गेम' मोड — हमारी (बेक्ड) शब्द-सूची उपलब्ध नहीं; user apne शब्द जोड़ेगा */
+try{
+  if(localStorage.getItem('jt-own-mode') === '1' && !jtCustomList){
+    SHABD_LIST.splice(0, SHABD_LIST.length);
+  }
+}catch(e){}
